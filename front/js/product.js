@@ -40,6 +40,19 @@ let canapeFetch = () => {
               }
 
         }
-        )};
+)};
 
-canapeFetch()
+canapeFetch();
+
+// local storage
+
+let quantityWanted = () => {
+    let quantity = document.querySelector("#quantity");
+    return quantityWanted.value;
+}
+
+localStorage.setItem('panier', hostProduct);
+localStorage.setItem('quantity', quantityWanted);
+
+
+console.log(quantity)
