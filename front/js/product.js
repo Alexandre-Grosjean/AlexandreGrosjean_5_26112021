@@ -46,13 +46,25 @@ canapeFetch();
 
 // local storage
 
-let quantityWanted = () => {
-    let quantity = document.querySelector("#quantity");
-    return quantityWanted.value;
+addToCart.onclick = () => {
+    const cart = {
+        id: id,
+        title: title.innerText,
+        quantity: quantity.value,
+        color: colors.value,
+        prix: price.innerText
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-localStorage.setItem('panier', hostProduct);
-localStorage.setItem('quantity', quantityWanted);
+// lien vers panier 
+
+const panier = document.querySelector('#addToCart');
+panier.addEventListener('click', cartLink)
 
 
-console.log(quantity)
+function cartLink (panier) {
+    window.location.href = "./cart.html";
+};
+
