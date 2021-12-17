@@ -15,7 +15,6 @@ let canapeFetch = () => {
     fetch(hostProduct)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
 
 // img via params & hostProduct
             let img = document.querySelector(".item__img");
@@ -46,25 +45,53 @@ canapeFetch();
 
 // local storage
 
+
+let card = [];
+
 addToCart.onclick = () => {
+
+
+
+    //variable for qty & colors
+    let qty = document.querySelector('#quantity');
+    let color = document.querySelector('#colors');
+    
+    
+    //object for cart
     const cart = {
         id: id,
         title: title.innerText,
-        quantity: quantity.value,
-        color: colors.value,
+        quantity: qty.value,
+        color: color.value,
         prix: price.innerText
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
+    //variable & function for array
+    card.push(cart);
+
+   if (color == localStorage.getItem("cart", JSON.stringify(card.color))) {
+
+        console.log('même couleur');
+        
+    } else {
+
+        for (let i = 0; i < card.length; i++) {
+            console.log(card[i]);
+            localStorage.setItem("cart", JSON.stringify(card));
+        }
+
+        console.log('differente couleur');
+          
+    }
+
+};
+
 
 // lien vers panier 
 
 const panier = document.querySelector('#addToCart');
-panier.addEventListener('click', cartLink)
-
+panier.addEventListener('click', cartLink);
 
 function cartLink (panier) {
     window.location.href = "./cart.html";
 };
-
