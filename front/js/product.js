@@ -61,37 +61,59 @@ addToCart.onclick = () => {
     const cart = {
         id: id,
         title: title.innerText,
-        quantity: qty.value,
+        quantity: parseInt(qty.value),
         color: color.value,
-        prix: price.innerText
+        prix: parseFloat(price.innerText)
     }
 
     //variable & function for array
-    card.push(cart);
-
-   if (color == localStorage.getItem("cart", JSON.stringify(card.color))) {
-
-        console.log('même couleur');
-        
+    let storage = JSON.parse(localStorage.getItem("cart"));
+    if (!storage) {
+        card.push(cart);
+        localStorage.setItem("cart", JSON.stringify(card));
     } else {
-
-        for (let i = 0; i < card.length; i++) {
-            console.log(card[i]);
+        console.log("ligne 75", id, color);
+        let item = storage.filter (element => { return (element.id == id && element.color == color.value)
+        });
+        console.log("ligne 78", item);
+        if(item.length > 0) {
+            item[0].quantity += parseInt(qty.value);
+            item[0].prix += parseInt(qty.value)*parseFloat(price.innerText);
+            let pos = storage.findIndex((element) => (element.id == id && element.color == color.value));
+            card[pos] = item[0];
+            localStorage.setItem("cart", JSON.stringify(card));
+        } else {
+            card.push(cart);
             localStorage.setItem("cart", JSON.stringify(card));
         }
+    };
 
-        console.log('differente couleur');
+
+
+//    if (color == localStorage.getItem("cart", JSON.stringify(card.color))) {
+
+//         console.log('même couleur');
+        
+//     } else {
+
+//         for (let i = 0; i < card.length; i++) {
+//             console.log(card[i]);
+//             localStorage.setItem("cart", JSON.stringify(card));
+//         }
+
+//         console.log('differente couleur');
           
-    }
+//     }
 
+//     alert('article ajouté au panier');
 };
 
 
 // lien vers panier 
 
-const panier = document.querySelector('#addToCart');
-panier.addEventListener('click', cartLink);
+// const panier = document.querySelector('#addToCart');
+// panier.addEventListener('click', cartLink);
 
-function cartLink (panier) {
-    window.location.href = "./cart.html";
-};
+// function cartLink (panier) {
+//     window.location.href = "./cart.html";
+// };

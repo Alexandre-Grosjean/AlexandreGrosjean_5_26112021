@@ -1,13 +1,17 @@
 let totalQuantity = document.querySelector('#totalQuantity')
 let totalPrice = document.querySelector('#totalPrice');
-let totalAddition;
 
 const article = JSON.parse(localStorage.getItem("cart"));
 
 if (article != null) {
-    totalPrice.innerText = totalAddition = (article[0].prix * article[0].quantity);
-    totalQuantity.innerText = article[0].quantity;
+
+    for (let i = 0; i < article.length; i++ ) {
+    totalPrice.innerText = (article[i].prix * article[i].quantity);
+    totalQuantity.innerText = article[i].quantity;
+    }
+    console.log(article.prix)
 } else {
     totalQuantity.innerText = "0";
     totalPrice.innerText = "0";
 };
+
