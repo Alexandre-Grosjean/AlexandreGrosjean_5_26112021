@@ -66,16 +66,16 @@ addToCart.onclick = () => {
         prix: parseFloat(price.innerText)
     }
 
-    //variable & function for array
+    //variable & condition for array
     let storage = JSON.parse(localStorage.getItem("cart"));
     if (!storage) {
         card.push(cart);
         localStorage.setItem("cart", JSON.stringify(card));
     } else {
-        console.log("ligne 75", id, color);
+        // console.log("ligne 75", id, color);
         let item = storage.filter (element => { return (element.id == id && element.color == color.value)
         });
-        console.log("ligne 78", item);
+        // console.log("ligne 78", item);
         if(item.length > 0) {
             item[0].quantity += parseInt(qty.value);
             item[0].prix += parseInt(qty.value)*parseFloat(price.innerText);
@@ -90,24 +90,7 @@ addToCart.onclick = () => {
 
 
 
-//    if (color == localStorage.getItem("cart", JSON.stringify(card.color))) {
-
-//         console.log('même couleur');
-        
-//     } else {
-
-//         for (let i = 0; i < card.length; i++) {
-//             console.log(card[i]);
-//             localStorage.setItem("cart", JSON.stringify(card));
-//         }
-
-//         console.log('differente couleur');
-          
-//     }
-
-//     alert('article ajouté au panier');
 };
-
 
 // lien vers panier 
 
@@ -115,5 +98,5 @@ addToCart.onclick = () => {
 // panier.addEventListener('click', cartLink);
 
 // function cartLink (panier) {
-//     window.location.href = "./cart.html";
+//     window.location.href = "./index.html";
 // };
