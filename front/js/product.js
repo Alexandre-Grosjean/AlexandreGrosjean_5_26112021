@@ -83,8 +83,8 @@ addToCart.onclick = () => {
             card[pos] = item[0];
             localStorage.setItem("cart", JSON.stringify(card));
         } else {
-            card.push(cart);
-            localStorage.setItem("cart", JSON.stringify(card));
+            storage.push(cart);
+            localStorage.setItem("cart", JSON.stringify(storage));
         }
     };
 
