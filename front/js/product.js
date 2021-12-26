@@ -89,7 +89,7 @@ addToCart.onclick = () => {
     };
 
 
-
+    window.location.reload();
 };
 
 // lien vers panier 
