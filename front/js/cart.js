@@ -62,7 +62,7 @@ if (storage != null) {
 
     for (const element of items) {
 
-// function for card cart        
+        // function for card cart        
 
         const kanapCard = () => {
 
@@ -91,42 +91,21 @@ if (storage != null) {
                 </article>  
             `;
             cart__items.innerHTML += card;
-
-// deletion of localstorage Class
-            let deleteStorage = document.querySelectorAll('.deleteItem');
-            
-            deleteStorage.forEach((e) => {
-            
-                e.onclick = () => {
-                    for (let i = 0; i < items.length; i++) {
-            
-                        if (items[i].id === element.id && items[i].color === element.color) {
-                            localStorage.removeItem('cart',[i]);
-                            console.log("yes");
-                        // window.location.reload();
-                        }
-                        else {
-                            console.log("ne fonctionne pas");
-                        };
-                    };
-                };
-            
-            });
         };
         kanapCard();
     };
 };
 
-let aValue = JSON.parse(localStorage.getItem("cart"));
-let test = [];
-test = aValue;
+// deletion of localstorage Class
+let deleteStorage = document.querySelectorAll('.deleteItem');
 
-console.log(test[0])
+deleteStorage.forEach((e) => {
+    e.onclick = () => {
+        console.log("test")
+    };
+});
 
-
-  // modification qty of product
-
-
+// modification qty of product
 
 
 // queryselector for sum
@@ -156,3 +135,17 @@ const sumTotal = () => {
 };
 
 sumTotal();
+
+//regex & formulaire
+
+const prenom = document.getElementById("firstName");
+const nom = document.getElementById("lastName");
+const ville = document.getElementById("city");
+const adresse = document.getElementById("address");
+const mail = document.getElementById("email");
+
+const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+
+

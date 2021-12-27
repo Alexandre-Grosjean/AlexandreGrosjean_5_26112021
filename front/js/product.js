@@ -91,12 +91,3 @@ addToCart.onclick = () => {
 
     window.location.reload();
 };
-
-// lien vers panier 
-
-// const panier = document.querySelector('#addToCart');
-// panier.addEventListener('click', cartLink);
-
-// function cartLink (panier) {
-//     window.location.href = "./index.html";
-// };
