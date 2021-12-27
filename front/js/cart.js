@@ -62,7 +62,7 @@ if (storage != null) {
 
     for (const element of items) {
 
-        // function for card cart        
+// function for card cart        
 
         const kanapCard = () => {
 
@@ -92,28 +92,41 @@ if (storage != null) {
             `;
             cart__items.innerHTML += card;
 
+// deletion of localstorage Class
+            let deleteStorage = document.querySelectorAll('.deleteItem');
+            
+            deleteStorage.forEach((e) => {
+            
+                e.onclick = () => {
+                    for (let i = 0; i < items.length; i++) {
+            
+                        if (items[i].id === element.id && items[i].color === element.color) {
+                            localStorage.removeItem('cart',[i]);
+                            console.log("yes");
+                        // window.location.reload();
+                        }
+                        else {
+                            console.log("ne fonctionne pas");
+                        };
+                    };
+                };
+            
+            });
         };
         kanapCard();
     };
 };
 
-// deletion of localstorage Class
-let dataId = document.querySelector('.cart__item');
-let deleteStorage = document.querySelectorAll('.deleteItem');
+let aValue = JSON.parse(localStorage.getItem("cart"));
+let test = [];
+test = aValue;
+
+console.log(test[0])
 
 
-deleteStorage.forEach((e) => {
+  // modification qty of product
 
-        e.onclick = () => {
-            if (items.id == Data.id)
-            localStorage.removeItem();
-            console.log("panier vidé")
-            window.location.reload();
-        }; 
 
-});
-
-console.log(dataId)
 
 
 // queryselector for sum
@@ -136,7 +149,6 @@ const sumTotal = () => {
             sumQty = sumQty + items[i].quantity;
         };
 
-        console.log(sumPrice)
         totalPrice.innerText = sumPrice;
         totalQuantity.innerText = sumQty;
     };
