@@ -46,7 +46,7 @@ const removeStorage = (product) => {
 // function to change quantity in local
 
 const changeQuantity = (product, quantity) => {
-    let foundProduct = cart.find(p => p.id == product.id);
+    let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
     if (foundProduct != undefined) {
         foundProduct.quantity += quantity
         if (foundProduct.quantity <= 0) {
@@ -138,7 +138,7 @@ if (storage != null) {
                 <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${element.quantity}">
                 </div>
                 <div class="cart__item__content__settings__delete">
-                <p class="deleteItem">Supprimer</p>
+                <p class="deleteItem" data-id="${element.id}" data-color="${element.color}">Supprimer</p>
                 </div>
                 </div>
                 </div>
@@ -154,43 +154,34 @@ if (storage != null) {
 
 // deletion of localstorage Class
 
-const idCard = document.querySelectorAll('.cart__item');
+const deleteStorage = document.querySelectorAll('.deleteItem');
 
 const cardID = () => {
-    let dataToChange = false;
-    
+
     for (const elements of items) {
-        console.log(elements.id)
-
-        idCard.forEach(element => {
-
-            if (element.dataset.id == elements.id && element.dataset.color == elements.color) {
-                    dataToChange = true;
-                    console.log(dataToChange)
-
-                    if(dataToChange = true) {
-                        let deleteStorage = document.querySelector('.deleteItem');
-
-                            element.onclick = () => {
-                                let cart = getStorage();
-                                cart = cart.filter(p => p.id + p.color != element.dataset.id + element.dataset.color);
-                                console.log(element.dataset.id + " / " + element.dataset.color)
-                                saveStorage(cart);
-                                window.location.reload();
-                            }
+        // console.log(elements.id)
+        deleteStorage.forEach(element => {
+                if (element.dataset.id + element.dataset.color == elements.id + elements.color) {
+                    let cart = getStorage();
+                    element.onclick = () => {
+                        cart = cart.filter(p => p.id + p.color != element.dataset.id + element.dataset.color);
+                        console.log(element.dataset.id + " / " + element.dataset.color);
+                        saveStorage(cart);
+                        window.location.reload();
                     }
-               
-            }
-        });
+                } 
+        })
     }
 }
 
 cardID()
 
-
-
 // modification qty of product
-let qtyValue = document.querySelector(".itemQuantity");
+let qtyValue = document.querySelectorAll(".itemQuantity");
+
+
+// cardQty()
+
 
 // queryselector for sum
 let totalQuantity = document.querySelector('#totalQuantity');
@@ -203,19 +194,20 @@ const sumTotal = () => {
     let sumPrice = 0;
     let sumQty = 0;
 
-    if (!storage) {
-        totalPrice.innerText = sumPrice;
-        totalQuantity.innerText = sumQty;
-    } else {
-        for (let i = 0; i < items.length; i++) {
-            sumPrice = sumPrice + (items[i].prix * items[i].quantity);
-            sumQty = sumQty + items[i].quantity;
+        if (!storage) {
+
+            totalPrice.innerText = sumPrice;
+            totalQuantity.innerText = sumQty;
+        } else {
+            for (let i = 0; i < items.length; i++) {
+                sumPrice = sumPrice + (items[i].prix * items[i].quantity);
+                sumQty = sumQty + items[i].quantity;
+            };
+
+            totalPrice.innerText = sumPrice;
+            totalQuantity.innerText = sumQty;
         };
-
-        totalPrice.innerText = sumPrice;
-        totalQuantity.innerText = sumQty;
-    };
-
+    
 };
 
 sumTotal();
