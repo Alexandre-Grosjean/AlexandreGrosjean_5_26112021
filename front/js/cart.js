@@ -3,12 +3,66 @@ let storage = JSON.parse(localStorage.getItem("cart"));
 let items = [];
 items = storage;
 
+// function to save in local
+
+const saveStorage = (cart) => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+// function to get in local
+
+const getStorage = () => {
+    let cart = localStorage.getItem("cart");
+    if (cart == null) {
+        return [];
+    } else {
+        return JSON.parse(cart);
+    }
+}
+
+// function to add in local
+
+const addStorage = (product) => {
+    let cart = getStorage();
+    let foundProduct = cart.find(p => p.id == product.id);
+    if (foundProduct != undefined) {
+        foundProduct.quantity++
+    } else {
+        product.quantity = 1;
+        cart.push(product);
+    }
+    saveStorage(cart);
+}
+
+
+// function to remove in local
+
+const removeStorage = (product) => {
+    let cart = getStorage();
+    cart = cart.filter(p => p.id != product.id);
+    saveStorage(cart);
+}
+
+// function to change quantity in local
+
+const changeQuantity = (product,quantity) => {
+    let foundProduct = cart.find(p => p.id == product.id);
+    if (foundProduct != undefined) {
+        foundProduct.quantity += quantity
+        if(foundProduct.quantity <= 0) {
+            removeStorage(foundProduct);
+        } else {
+            saveStorage(cart);
+        }
+    }
+}
+
 // switchCase for id.img
 let img;
 
 if (!storage) {
 
-    console.log("panier vide");
+    // console.log("panier vide");
     cart__items.innerHTML = `<p>Le panier est vide</p>`;
 
 } else {
@@ -93,6 +147,7 @@ if (storage != null) {
             cart__items.innerHTML += card;
         };
         kanapCard();
+
     };
 };
 
@@ -100,12 +155,25 @@ if (storage != null) {
 let deleteStorage = document.querySelectorAll('.deleteItem');
 
 deleteStorage.forEach((e) => {
+    
     e.onclick = () => {
-        console.log("test")
+        console.log('ligne 160')
+        // removeStorage();
+        window.location.reload();
     };
+
+
 });
 
+
 // modification qty of product
+let qtyValue = document.querySelectorAll(".itemQuantity");
+
+qtyValue.forEach((e) => {
+        // changeQuantity();
+});
+
+// if (items.quantity)
 
 
 // queryselector for sum
@@ -136,6 +204,25 @@ const sumTotal = () => {
 
 sumTotal();
 
+//localStorage for formulaire
+
+let identifiant;
+let order = document.querySelector("#order");
+
+order.onlick = () => {
+const IdStorage = () => {
+    if (identifiant == null) {
+        identifiant = [];
+        identifiant = localStorage.setItem("identifiant", JSON.stringify(identifiant));
+        storage.push(identifiant)
+    } else {
+        identifiant = localStorage.setItem("identifiant", JSON.stringify(identifiant));
+        storage.push(identifiant)
+    }
+};
+IdStorage()
+};
+
 //regex & formulaire
 
 const prenom = document.getElementById("firstName");
@@ -147,5 +234,10 @@ const mail = document.getElementById("email");
 const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
 const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+// prenom
 
+// nom
 
+// ville
+
+// mail
