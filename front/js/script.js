@@ -15,7 +15,7 @@ let canapeFetch = () => {
 // boucle pour chaque carte
     for (i = 0; i < data.length; i++) {
         const card = `
-        <a href="./product.html?${data[i]._id}"> 
+        <a href="./product.html?id=${data[i]._id}"> 
             <article>
                 <img src="${data[i].imageUrl}" alt="${data[i].altTxt}" />
                 <h3 class="productName">${data[i].name}</h3>
