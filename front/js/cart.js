@@ -45,11 +45,11 @@ const removeStorage = (product) => {
 
 // function to change quantity in local
 
-const changeQuantity = (product,quantity) => {
+const changeQuantity = (product, quantity) => {
     let foundProduct = cart.find(p => p.id == product.id);
     if (foundProduct != undefined) {
         foundProduct.quantity += quantity
-        if(foundProduct.quantity <= 0) {
+        if (foundProduct.quantity <= 0) {
             removeStorage(foundProduct);
         } else {
             saveStorage(cart);
@@ -148,33 +148,49 @@ if (storage != null) {
         };
         kanapCard();
 
+
     };
-};
+}
 
 // deletion of localstorage Class
-let deleteStorage = document.querySelectorAll('.deleteItem');
 
-deleteStorage.forEach((e) => {
+const idCard = document.querySelectorAll('.cart__item');
+
+const cardID = () => {
+    let dataToChange = false;
     
-    e.onclick = () => {
-        console.log('ligne 160')
-        // removeStorage();
-        window.location.reload();
-    };
+    for (const elements of items) {
+        console.log(elements.id)
 
+        idCard.forEach(element => {
 
-});
+            if (element.dataset.id == elements.id && element.dataset.color == elements.color) {
+                    dataToChange = true;
+                    console.log(dataToChange)
+
+                    if(dataToChange = true) {
+                        let deleteStorage = document.querySelector('.deleteItem');
+
+                            element.onclick = () => {
+                                let cart = getStorage();
+                                cart = cart.filter(p => p.id + p.color != element.dataset.id + element.dataset.color);
+                                console.log(element.dataset.id + " / " + element.dataset.color)
+                                saveStorage(cart);
+                                window.location.reload();
+                            }
+                    }
+               
+            }
+        });
+    }
+}
+
+cardID()
+
 
 
 // modification qty of product
-let qtyValue = document.querySelectorAll(".itemQuantity");
-
-qtyValue.forEach((e) => {
-        // changeQuantity();
-});
-
-// if (items.quantity)
-
+let qtyValue = document.querySelector(".itemQuantity");
 
 // queryselector for sum
 let totalQuantity = document.querySelector('#totalQuantity');
@@ -204,40 +220,40 @@ const sumTotal = () => {
 
 sumTotal();
 
-//localStorage for formulaire
+// //localStorage for formulaire
 
-let identifiant;
-let order = document.querySelector("#order");
+// let identifiant;
+// let order = document.querySelector("#order");
 
-order.onlick = () => {
-const IdStorage = () => {
-    if (identifiant == null) {
-        identifiant = [];
-        identifiant = localStorage.setItem("identifiant", JSON.stringify(identifiant));
-        storage.push(identifiant)
-    } else {
-        identifiant = localStorage.setItem("identifiant", JSON.stringify(identifiant));
-        storage.push(identifiant)
-    }
-};
-IdStorage()
-};
+// order.onlick = () => {
+// const IdStorage = () => {
+//     if (identifiant == null) {
+//         identifiant = [];
+//         identifiant = localStorage.setItem("identifiant", JSON.stringify(identifiant));
+//         storage.push(identifiant);
+//     } else {
+//         identifiant = localStorage.setItem("identifiant", JSON.stringify(identifiant));
+//         storage.push(identifiant);
+//     }
+// };
+// IdStorage()
+// };
 
-//regex & formulaire
+// //regex & formulaire
 
-const prenom = document.getElementById("firstName");
-const nom = document.getElementById("lastName");
-const ville = document.getElementById("city");
-const adresse = document.getElementById("address");
-const mail = document.getElementById("email");
+// const prenom = document.getElementById("firstName");
+// const nom = document.getElementById("lastName");
+// const ville = document.getElementById("city");
+// const adresse = document.getElementById("address");
+// const mail = document.getElementById("email");
 
-const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
-const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+// const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+// const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-// prenom
+// // prenom
 
-// nom
+// // nom
 
-// ville
+// // ville
 
-// mail
+// // mail
