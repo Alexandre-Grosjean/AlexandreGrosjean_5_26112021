@@ -23,7 +23,6 @@ const getStorage = () => {
 // function to add in local
 
 const addStorage = (product) => {
-    let cart = getStorage();
     let foundProduct = cart.find(p => p.id == product.id);
     if (foundProduct != undefined) {
         foundProduct.quantity++
@@ -45,17 +44,18 @@ const removeStorage = (product) => {
 
 // function to change quantity in local
 
-const changeQuantity = (product, quantity) => {
-    let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
-    if (foundProduct != undefined) {
-        foundProduct.quantity += quantity
-        if (foundProduct.quantity <= 0) {
-            removeStorage(foundProduct);
-        } else {
-            saveStorage(cart);
-        }
-    }
-}
+// const changeQuantity = (product, quantity) => {
+//     let cart = getStorage();
+//     let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
+//     if (foundProduct != undefined) {
+//         foundProduct.quantity += quantity
+//         if (foundProduct.quantity <= 0) {
+//             removeStorage(foundProduct);
+//         } else {
+//             saveStorage(cart);
+//         }
+//     }
+// }
 
 // switchCase for id.img
 let img;
@@ -135,7 +135,7 @@ if (storage != null) {
                 <div class="cart__item__content__settings">
                 <div class="cart__item__content__settings__quantity">
                 <p>Qté : </p>
-                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${element.quantity}">
+                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${element.quantity}" data-id="${element.id}" data-color="${element.color}">
                 </div>
                 <div class="cart__item__content__settings__delete">
                 <p class="deleteItem" data-id="${element.id}" data-color="${element.color}">Supprimer</p>
@@ -177,10 +177,41 @@ const cardID = () => {
 cardID()
 
 // modification qty of product
-let qtyValue = document.querySelectorAll(".itemQuantity");
+const qtyValue = document.querySelectorAll("input.itemQuantity");
+// console.log(qtyValue.value)
+
+const cardQty = () => {
+
+    for (const elements of items) {
+        qtyValue.forEach(element => {
+            // console.log(element.value + element.dataset.id == elements.quantity + elements.id);
+            if (element.value + element.dataset.id + element.dataset.color == elements.quantity + elements.id + elements.color) {
+                // let cart = getStorage();
+                element.onclick = () => {
+                        console.log(element.value + " / " + element.dataset.id  + " / " + element.dataset.color);
+                        let cart = getStorage();
+                        
+                        const changeQuantity = (product, quantity) => {
+                            let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
+                            if (foundProduct != undefined) {
+                                foundProduct.quantity = element.value
+                                // console.log(foundProduct.quantity = element.value)
+                                if (foundProduct.quantity <= 0) {
+                                    removeStorage(foundProduct);
+                                } else {
+                                    saveStorage(cart);
+                                }
+                            }
+                        }
+                        changeQuantity()
+                    }
+                } 
+        })
+    }
+}
 
 
-// cardQty()
+cardQty()
 
 
 // queryselector for sum
