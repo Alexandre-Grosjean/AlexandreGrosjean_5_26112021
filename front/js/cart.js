@@ -177,6 +177,7 @@ const cardID = () => {
 cardID()
 
 // modification qty of product
+
 const qtyValue = document.querySelectorAll("input.itemQuantity");
 // console.log(qtyValue.value)
 
@@ -188,24 +189,26 @@ const cardQty = () => {
             if (element.value + element.dataset.id + element.dataset.color == elements.quantity + elements.id + elements.color) {
                 // let cart = getStorage();
                 element.onclick = () => {
-                        console.log(element.value + " / " + element.dataset.id  + " / " + element.dataset.color);
-                        let cart = getStorage();
-                        
-                        const changeQuantity = (product, quantity) => {
-                            let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
-                            if (foundProduct != undefined) {
-                                foundProduct.quantity = element.value
-                                // console.log(foundProduct.quantity = element.value)
-                                if (foundProduct.quantity <= 0) {
-                                    removeStorage(foundProduct);
-                                } else {
-                                    saveStorage(cart);
-                                }
+                    console.log(element.value + " / " + element.dataset.id + " / " + element.dataset.color);
+                    let cart = getStorage();
+
+                    const changeQuantity = (product, quantity) => {
+                        let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
+                        if (foundProduct != undefined) {
+                            foundProduct.quantity = element.value
+                            // console.log(foundProduct.quantity = element.value)
+                            if (foundProduct.quantity <= 0) {
+                                removeStorage(foundProduct);
+                                window.location.reload();
+                            } else {
+                                saveStorage(cart);
+                                window.location.reload();
                             }
                         }
-                        changeQuantity()
                     }
-                } 
+                    changeQuantity()
+                }
+            }
         })
     }
 }
@@ -243,40 +246,118 @@ const sumTotal = () => {
 
 sumTotal();
 
-// //localStorage for formulaire
 
-// let identifiant;
-// let order = document.querySelector("#order");
+//regex & formulaire
 
-// order.onlick = () => {
-// const IdStorage = () => {
-//     if (identifiant == null) {
-//         identifiant = [];
-//         identifiant = localStorage.setItem("identifiant", JSON.stringify(identifiant));
-//         storage.push(identifiant);
-//     } else {
-//         identifiant = localStorage.setItem("identifiant", JSON.stringify(identifiant));
-//         storage.push(identifiant);
+let form = document.querySelector(".cart__order__form");
+
+// console.log(form.firstName);
+
+// prenom
+
+// listening modification
+form.firstName.addEventListener('change', function(){
+    validFirstName(this)
+})
+
+// validation du input
+const validFirstName = function(inputFirstName){
+    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+    let errorFirstName = document.querySelector('#firstNameErrorMsg')
+
+    if(regexName.test(inputFirstName.value)) {
+        errorFirstName.innerHTML = 'valide';
+
+    } else {
+        errorFirstName.innerHTML = "non valide";
+    }
+}
+
+// nom
+
+// listening modification
+form.lastName.addEventListener('change', function(){
+    validLastName(this)
+})
+
+// validation du input
+const validLastName = function(inputLastName){
+    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+    let errorLastName = document.querySelector('#lastNameErrorMsg')
+
+    if(regexName.test(inputLastName.value)) {
+        errorLastName.innerHTML = 'valide';
+
+    } else {
+        errorLastName.innerHTML = "non valide";
+    }
+}
+
+// adresse
+
+// listening modification
+form.address.addEventListener('change', function(){
+    validAddress(this)
+})
+
+// validation du input
+const validAddress = function(inputAddress){
+    const regexAddress = /^[#.0-9a-zA-Z\s,-]+$/i;
+    let addressErrorMsg = document.querySelector('#addressErrorMsg')
+
+    if(regexAddress.test(inputAddress.value)) {
+        addressErrorMsg.innerHTML = 'valide';
+
+    } else {
+        addressErrorMsg.innerHTML = "non valide";
+    }
+}
+
+// ville
+
+// listening modification
+form.city.addEventListener('change', function(){
+    validCity(this)
+})
+
+// validation du input
+const validCity = function(inputCity){
+    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+    let cityErrorMsg = document.querySelector('#cityErrorMsg')
+
+    if(regexName.test(inputCity.value)) {
+        cityErrorMsg.innerHTML = 'valide';
+
+    } else {
+        cityErrorMsg.innerHTML = "non valide";
+    }
+}
+
+// mail
+
+// listening modification
+form.email.addEventListener('change', function(){
+    validEmail(this)
+})
+
+// validation du input
+const validEmail = function(inputMail){
+    const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let emailErrorMsg = document.querySelector('#emailErrorMsg')
+
+    if(regexMail.test(inputMail.value)) {
+        emailErrorMsg.innerHTML = 'valide';
+
+    } else {
+        emailErrorMsg.innerHTML = "non valide";
+    }
+}
+
+// // object for formulaire
+//     const cart = {
+//         firstName: prenom,
+//         lastName: nom,
+//         city: ville,
+//         adresse: adresse,
+//         mail: mail
 //     }
-// };
-// IdStorage()
-// };
-
-// //regex & formulaire
-
-// const prenom = document.getElementById("firstName");
-// const nom = document.getElementById("lastName");
-// const ville = document.getElementById("city");
-// const adresse = document.getElementById("address");
-// const mail = document.getElementById("email");
-
-// const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
-// const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-// // prenom
-
-// // nom
-
-// // ville
-
-// // mail
