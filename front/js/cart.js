@@ -3,13 +3,66 @@ let storage = JSON.parse(localStorage.getItem("cart"));
 let items = [];
 items = storage;
 
+// function to save in local
+
+const saveStorage = (cart) => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+// function to get in local
+
+const getStorage = () => {
+    let cart = localStorage.getItem("cart");
+    if (cart == null) {
+        return [];
+    } else {
+        return JSON.parse(cart);
+    }
+}
+
+// function to add in local
+
+const addStorage = (product) => {
+    let foundProduct = cart.find(p => p.id == product.id);
+    if (foundProduct != undefined) {
+        foundProduct.quantity++
+    } else {
+        product.quantity = 1;
+        cart.push(product);
+    }
+    saveStorage(cart);
+}
+
+
+// function to remove in local
+
+const removeStorage = (product) => {
+    let cart = getStorage();
+    cart = cart.filter(p => p.id != product.id);
+    saveStorage(cart);
+}
+
+// function to change quantity in local
+
+// const changeQuantity = (product, quantity) => {
+//     let cart = getStorage();
+//     let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
+//     if (foundProduct != undefined) {
+//         foundProduct.quantity += quantity
+//         if (foundProduct.quantity <= 0) {
+//             removeStorage(foundProduct);
+//         } else {
+//             saveStorage(cart);
+//         }
+//     }
+// }
+
 // switchCase for id.img
 let img;
 
 if (!storage) {
 
-    console.log("panier vide");
-    cart__items.innerHTML = `<p>Le panier est vide</p>`;
+    // console.log("panier vide");
 
 } else {
 
@@ -59,10 +112,10 @@ if (!storage) {
 // function for cart
 
 if (storage != null) {
+for (const element of items) {
 
-    for (const element of items) {
-
-        // function for card cart        
+        // function for card cart     
+           
 
         const kanapCard = () => {
 
@@ -81,10 +134,10 @@ if (storage != null) {
                 <div class="cart__item__content__settings">
                 <div class="cart__item__content__settings__quantity">
                 <p>Qté : </p>
-                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${element.quantity}">
+                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${element.quantity}" data-id="${element.id}" data-color="${element.color}">
                 </div>
                 <div class="cart__item__content__settings__delete">
-                <p class="deleteItem">Supprimer</p>
+                <p class="deleteItem" data-id="${element.id}" data-color="${element.color}">Supprimer</p>
                 </div>
                 </div>
                 </div>
@@ -93,21 +146,78 @@ if (storage != null) {
             cart__items.innerHTML += card;
         };
         kanapCard();
-    };
-};
 
+    };
+
+}
 // deletion of localstorage Class
-let deleteStorage = document.querySelectorAll('.deleteItem');
 
-deleteStorage.forEach((e) => {
-    e.onclick = () => {
-        console.log("test")
-    };
-});
+const deleteStorage = document.querySelectorAll('.deleteItem');
+
+
+if (storage != null) {
+const cardID = () => {
+
+    for (const elements of items) {
+        // console.log(elements.id)
+        deleteStorage.forEach(element => {
+                if (element.dataset.id + element.dataset.color == elements.id + elements.color) {
+                    let cart = getStorage();
+                    element.onclick = () => {
+                        cart = cart.filter(p => p.id + p.color != element.dataset.id + element.dataset.color);
+                        console.log(element.dataset.id + " / " + element.dataset.color);
+                        saveStorage(cart);
+                        window.location.reload();
+                    }
+                } 
+        })
+    }
+}
+cardID()
+}
 
 // modification qty of product
 
+const qtyValue = document.querySelectorAll("input.itemQuantity");
+// console.log(qtyValue.value)
 
+if (storage != null) {
+const cardQty = () => {
+
+    for (const elements of items) {
+        qtyValue.forEach(element => {
+            // console.log(element.value + element.dataset.id == elements.quantity + elements.id);
+            if (element.value + element.dataset.id + element.dataset.color == elements.quantity + elements.id + elements.color) {
+                // let cart = getStorage();
+                element.onclick = () => {
+                    console.log(element.value + " / " + element.dataset.id + " / " + element.dataset.color);
+                    let cart = getStorage();
+
+                    const changeQuantity = (product, quantity) => {
+                        let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
+                        if (foundProduct != undefined) {
+                            foundProduct.quantity = element.value
+                            // console.log(foundProduct.quantity = element.value)
+                            if (foundProduct.quantity <= 0) {
+                                removeStorage(foundProduct);
+                                window.location.reload();
+                            } else {
+                                saveStorage(cart);
+                                window.location.reload();
+                            }
+                        }
+                    }
+                    changeQuantity()
+                }
+            }
+        })
+    }
+
+
+}
+
+cardQty()
+}
 // queryselector for sum
 let totalQuantity = document.querySelector('#totalQuantity');
 let totalPrice = document.querySelector('#totalPrice');
@@ -119,33 +229,190 @@ const sumTotal = () => {
     let sumPrice = 0;
     let sumQty = 0;
 
-    if (!storage) {
-        totalPrice.innerText = sumPrice;
-        totalQuantity.innerText = sumQty;
-    } else {
-        for (let i = 0; i < items.length; i++) {
-            sumPrice = sumPrice + (items[i].prix * items[i].quantity);
-            sumQty = sumQty + items[i].quantity;
+        if (!storage) {
+
+            totalPrice.innerText = sumPrice;
+            totalQuantity.innerText = sumQty;
+        } else {
+            for (let i = 0; i < items.length; i++) {
+                sumPrice = sumPrice + (items[i].prix * items[i].quantity);
+                sumQty = sumQty + parseInt(items[i].quantity);
+            };
+
+            totalPrice.innerText = sumPrice;
+            totalQuantity.innerText = parseInt(sumQty);
         };
-
-        totalPrice.innerText = sumPrice;
-        totalQuantity.innerText = sumQty;
-    };
-
+    
 };
 
 sumTotal();
 
+
+
 //regex & formulaire
 
-const prenom = document.getElementById("firstName");
-const nom = document.getElementById("lastName");
-const ville = document.getElementById("city");
-const adresse = document.getElementById("address");
-const mail = document.getElementById("email");
+let form = document.querySelector(".cart__order__form");
 
-const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
-const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//variable for object
+let prenom;
+let nom;
+let adresse;
+let ville;
+let email;
+
+// prenom
+
+// listening modification
+form.firstName.addEventListener('change', function(){
+    validFirstName(this)
+})
+
+// validation du input
+const validFirstName = function(inputFirstName){
+    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+    let errorFirstName = document.querySelector('#firstNameErrorMsg');
+
+    if(regexName.test(inputFirstName.value)) {
+        errorFirstName.innerHTML = 'valide';
+        prenom = form.firstName.value;
+        console.log(prenom)
+    } else {
+        errorFirstName.innerHTML = "non valide";
+    }
+}
+
+// nom
+
+// listening modification
+form.lastName.addEventListener('change', function(){
+    validLastName(this)
+})
+
+// validation du input
+const validLastName = function(inputLastName){
+    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+    let errorLastName = document.querySelector('#lastNameErrorMsg');
+
+    if(regexName.test(inputLastName.value)) {
+        errorLastName.innerHTML = 'valide';
+        nom = form.lastName.value;
+        console.log(nom)
+    } else {
+        errorLastName.innerHTML = "non valide";
+    }
+}
+
+// adresse
+
+// listening modification
+form.address.addEventListener('change', function(){
+    validAddress(this)
+})
+
+// validation du input
+const validAddress = function(inputAddress){
+    const regexAddress = /^[#.0-9a-zA-Z\s,-]+$/i;
+    let addressErrorMsg = document.querySelector('#addressErrorMsg');
+
+    if(regexAddress.test(inputAddress.value)) {
+        addressErrorMsg.innerHTML = 'valide';
+        adresse = form.address.value;
+        console.log(adresse)
+    } else {
+        addressErrorMsg.innerHTML = "non valide";
+    }
+}
+
+// ville
+
+// listening modification
+form.city.addEventListener('change', function(){
+    validCity(this)
+})
+
+// validation du input
+const validCity = function(inputCity){
+    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+    let cityErrorMsg = document.querySelector('#cityErrorMsg');
+
+    if(regexName.test(inputCity.value)) {
+        cityErrorMsg.innerHTML = 'valide';
+        ville = form.city.value;
+        console.log(ville)
+    } else {
+        cityErrorMsg.innerHTML = "non valide";
+    }
+}
+
+// mail
+
+// listening modification
+form.email.addEventListener('change', function(){
+    validEmail(this)
+})
+
+// validation du input
+const validEmail = function(inputMail){
+    const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let emailErrorMsg = document.querySelector('#emailErrorMsg');
+
+    if(regexMail.test(inputMail.value)) {
+        emailErrorMsg.innerHTML = 'valide';
+        email = form.email.value;
+        console.log(email)
+    } else {
+        emailErrorMsg.innerHTML = "non valide";
+    }
+}
+
+// chiffre aleatoire à 10 chiffres pour id commande
+let min = 0000000000;
+let max = 9999999999;
+let orderId = Math.floor(Math.random() * (max - min)) + min;
+
+//action on submit
+const commande = document.querySelector('#order');
+
+const host = "http://localhost:3000/api/products/";
+const confirmationUrl = "./confirmation.html?id=";
+
+console.log("test")
 
 
 
+if (storage != null) {
+commande.onclick = () => {
+    const info = {
+        firstName: prenom,
+        lastName: nom,
+        adresse: adresse,
+        city: ville,
+        mail: email
+    }
+
+    if (info.firstName && info.lastName && info.adresse && info.city && info.mail) {
+        
+        localStorage.setItem("commande", JSON.stringify(info));
+
+        let commandFetch = () => {
+            fetch(host)
+                .then((response) => response.json())
+                .then((data) => {
+                    window.location.href = confirmationUrl + orderId;
+                    // alert('etape atteinte')
+                })
+                .catch(() => {
+                    alert("Une erreur est survenue, merci de revenir plus tard.");
+                }); // catching errors
+            }
+            
+            commandFetch();
+            
+        } else {
+            
+            alert("donnée invalide")
+            
+        }
+        
+    }
+}
