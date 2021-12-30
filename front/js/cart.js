@@ -63,7 +63,6 @@ let img;
 if (!storage) {
 
     // console.log("panier vide");
-    cart__items.innerHTML = `<p>Le panier est vide</p>`;
 
 } else {
 
@@ -113,10 +112,10 @@ if (!storage) {
 // function for cart
 
 if (storage != null) {
+for (const element of items) {
 
-    for (const element of items) {
-
-        // function for card cart        
+        // function for card cart     
+           
 
         const kanapCard = () => {
 
@@ -148,14 +147,15 @@ if (storage != null) {
         };
         kanapCard();
 
-
     };
-}
 
+}
 // deletion of localstorage Class
 
 const deleteStorage = document.querySelectorAll('.deleteItem');
 
+
+if (storage != null) {
 const cardID = () => {
 
     for (const elements of items) {
@@ -173,14 +173,15 @@ const cardID = () => {
         })
     }
 }
-
 cardID()
+}
 
 // modification qty of product
 
 const qtyValue = document.querySelectorAll("input.itemQuantity");
 // console.log(qtyValue.value)
 
+if (storage != null) {
 const cardQty = () => {
 
     for (const elements of items) {
@@ -211,12 +212,12 @@ const cardQty = () => {
             }
         })
     }
+
+
 }
 
-
 cardQty()
-
-
+}
 // queryselector for sum
 let totalQuantity = document.querySelector('#totalQuantity');
 let totalPrice = document.querySelector('#totalPrice');
@@ -235,11 +236,11 @@ const sumTotal = () => {
         } else {
             for (let i = 0; i < items.length; i++) {
                 sumPrice = sumPrice + (items[i].prix * items[i].quantity);
-                sumQty = sumQty + items[i].quantity;
+                sumQty = sumQty + parseInt(items[i].quantity);
             };
 
             totalPrice.innerText = sumPrice;
-            totalQuantity.innerText = sumQty;
+            totalQuantity.innerText = parseInt(sumQty);
         };
     
 };
@@ -247,11 +248,17 @@ const sumTotal = () => {
 sumTotal();
 
 
+
 //regex & formulaire
 
 let form = document.querySelector(".cart__order__form");
 
-// console.log(form.firstName);
+//variable for object
+let prenom;
+let nom;
+let adresse;
+let ville;
+let email;
 
 // prenom
 
@@ -263,11 +270,12 @@ form.firstName.addEventListener('change', function(){
 // validation du input
 const validFirstName = function(inputFirstName){
     const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
-    let errorFirstName = document.querySelector('#firstNameErrorMsg')
+    let errorFirstName = document.querySelector('#firstNameErrorMsg');
 
     if(regexName.test(inputFirstName.value)) {
         errorFirstName.innerHTML = 'valide';
-
+        prenom = form.firstName.value;
+        console.log(prenom)
     } else {
         errorFirstName.innerHTML = "non valide";
     }
@@ -283,11 +291,12 @@ form.lastName.addEventListener('change', function(){
 // validation du input
 const validLastName = function(inputLastName){
     const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
-    let errorLastName = document.querySelector('#lastNameErrorMsg')
+    let errorLastName = document.querySelector('#lastNameErrorMsg');
 
     if(regexName.test(inputLastName.value)) {
         errorLastName.innerHTML = 'valide';
-
+        nom = form.lastName.value;
+        console.log(nom)
     } else {
         errorLastName.innerHTML = "non valide";
     }
@@ -303,11 +312,12 @@ form.address.addEventListener('change', function(){
 // validation du input
 const validAddress = function(inputAddress){
     const regexAddress = /^[#.0-9a-zA-Z\s,-]+$/i;
-    let addressErrorMsg = document.querySelector('#addressErrorMsg')
+    let addressErrorMsg = document.querySelector('#addressErrorMsg');
 
     if(regexAddress.test(inputAddress.value)) {
         addressErrorMsg.innerHTML = 'valide';
-
+        adresse = form.address.value;
+        console.log(adresse)
     } else {
         addressErrorMsg.innerHTML = "non valide";
     }
@@ -323,11 +333,12 @@ form.city.addEventListener('change', function(){
 // validation du input
 const validCity = function(inputCity){
     const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
-    let cityErrorMsg = document.querySelector('#cityErrorMsg')
+    let cityErrorMsg = document.querySelector('#cityErrorMsg');
 
     if(regexName.test(inputCity.value)) {
         cityErrorMsg.innerHTML = 'valide';
-
+        ville = form.city.value;
+        console.log(ville)
     } else {
         cityErrorMsg.innerHTML = "non valide";
     }
@@ -343,21 +354,65 @@ form.email.addEventListener('change', function(){
 // validation du input
 const validEmail = function(inputMail){
     const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let emailErrorMsg = document.querySelector('#emailErrorMsg')
+    let emailErrorMsg = document.querySelector('#emailErrorMsg');
 
     if(regexMail.test(inputMail.value)) {
         emailErrorMsg.innerHTML = 'valide';
-
+        email = form.email.value;
+        console.log(email)
     } else {
         emailErrorMsg.innerHTML = "non valide";
     }
 }
 
-// // object for formulaire
-//     const cart = {
-//         firstName: prenom,
-//         lastName: nom,
-//         city: ville,
-//         adresse: adresse,
-//         mail: mail
-//     }
+// chiffre aleatoire à 10 chiffres pour id commande
+let min = 0000000000;
+let max = 9999999999;
+let orderId = Math.floor(Math.random() * (max - min)) + min;
+
+//action on submit
+const commande = document.querySelector('#order');
+
+const host = "http://localhost:3000/api/products/";
+const confirmationUrl = "./confirmation.html?id=";
+
+console.log("test")
+
+
+
+if (storage != null) {
+commande.onclick = () => {
+    const info = {
+        firstName: prenom,
+        lastName: nom,
+        adresse: adresse,
+        city: ville,
+        mail: email
+    }
+
+    if (info.firstName && info.lastName && info.adresse && info.city && info.mail) {
+        
+        localStorage.setItem("commande", JSON.stringify(info));
+
+        let commandFetch = () => {
+            fetch(host)
+                .then((response) => response.json())
+                .then((data) => {
+                    window.location.href = confirmationUrl + orderId;
+                    // alert('etape atteinte')
+                })
+                .catch(() => {
+                    alert("Une erreur est survenue, merci de revenir plus tard.");
+                }); // catching errors
+            }
+            
+            commandFetch();
+            
+        } else {
+            
+            alert("donnée invalide")
+            
+        }
+        
+    }
+}
