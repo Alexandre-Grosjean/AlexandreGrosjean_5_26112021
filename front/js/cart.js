@@ -3,6 +3,8 @@ let storage = JSON.parse(localStorage.getItem("cart"));
 let items = [];
 items = storage;
 
+
+
 // function to save in local
 
 const saveStorage = (cart) => {
@@ -41,21 +43,6 @@ const removeStorage = (product) => {
     cart = cart.filter(p => p.id != product.id);
     saveStorage(cart);
 }
-
-// function to change quantity in local
-
-// const changeQuantity = (product, quantity) => {
-//     let cart = getStorage();
-//     let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
-//     if (foundProduct != undefined) {
-//         foundProduct.quantity += quantity
-//         if (foundProduct.quantity <= 0) {
-//             removeStorage(foundProduct);
-//         } else {
-//             saveStorage(cart);
-//         }
-//     }
-// }
 
 // switchCase for id.img
 let img;
@@ -112,10 +99,10 @@ if (!storage) {
 // function for cart
 
 if (storage != null) {
-for (const element of items) {
+    for (const element of items) {
 
         // function for card cart     
-           
+
 
         const kanapCard = () => {
 
@@ -156,11 +143,11 @@ const deleteStorage = document.querySelectorAll('.deleteItem');
 
 
 if (storage != null) {
-const cardID = () => {
+    const cardID = () => {
 
-    for (const elements of items) {
-        // console.log(elements.id)
-        deleteStorage.forEach(element => {
+        for (const elements of items) {
+            // console.log(elements.id)
+            deleteStorage.forEach(element => {
                 if (element.dataset.id + element.dataset.color == elements.id + elements.color) {
                     let cart = getStorage();
                     element.onclick = () => {
@@ -169,11 +156,11 @@ const cardID = () => {
                         saveStorage(cart);
                         window.location.reload();
                     }
-                } 
-        })
+                }
+            })
+        }
     }
-}
-cardID()
+    cardID()
 }
 
 // modification qty of product
@@ -182,41 +169,41 @@ const qtyValue = document.querySelectorAll("input.itemQuantity");
 // console.log(qtyValue.value)
 
 if (storage != null) {
-const cardQty = () => {
+    const cardQty = () => {
 
-    for (const elements of items) {
-        qtyValue.forEach(element => {
-            // console.log(element.value + element.dataset.id == elements.quantity + elements.id);
-            if (element.value + element.dataset.id + element.dataset.color == elements.quantity + elements.id + elements.color) {
-                // let cart = getStorage();
-                element.onclick = () => {
-                    console.log(element.value + " / " + element.dataset.id + " / " + element.dataset.color);
-                    let cart = getStorage();
+        for (const elements of items) {
+            qtyValue.forEach(element => {
+                // console.log(element.value + element.dataset.id == elements.quantity + elements.id);
+                if (element.value + element.dataset.id + element.dataset.color == elements.quantity + elements.id + elements.color) {
+                    // let cart = getStorage();
+                    element.onclick = () => {
+                        console.log(element.value + " / " + element.dataset.id + " / " + element.dataset.color);
+                        let cart = getStorage();
 
-                    const changeQuantity = (product, quantity) => {
-                        let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
-                        if (foundProduct != undefined) {
-                            foundProduct.quantity = element.value
-                            // console.log(foundProduct.quantity = element.value)
-                            if (foundProduct.quantity <= 0) {
-                                removeStorage(foundProduct);
-                                window.location.reload();
-                            } else {
-                                saveStorage(cart);
-                                window.location.reload();
+                        const changeQuantity = (product, quantity) => {
+                            let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
+                            if (foundProduct != undefined) {
+                                foundProduct.quantity = element.value
+                                // console.log(foundProduct.quantity = element.value)
+                                if (foundProduct.quantity <= 0) {
+                                    removeStorage(foundProduct);
+                                    window.location.reload();
+                                } else {
+                                    saveStorage(cart);
+                                    window.location.reload();
+                                }
                             }
                         }
+                        changeQuantity()
                     }
-                    changeQuantity()
                 }
-            }
-        })
+            })
+        }
+
+
     }
 
-
-}
-
-cardQty()
+    cardQty()
 }
 // queryselector for sum
 let totalQuantity = document.querySelector('#totalQuantity');
@@ -229,20 +216,20 @@ const sumTotal = () => {
     let sumPrice = 0;
     let sumQty = 0;
 
-        if (!storage) {
+    if (!storage) {
 
-            totalPrice.innerText = sumPrice;
-            totalQuantity.innerText = sumQty;
-        } else {
-            for (let i = 0; i < items.length; i++) {
-                sumPrice = sumPrice + (items[i].prix * items[i].quantity);
-                sumQty = sumQty + parseInt(items[i].quantity);
-            };
-
-            totalPrice.innerText = sumPrice;
-            totalQuantity.innerText = parseInt(sumQty);
+        totalPrice.innerText = sumPrice;
+        totalQuantity.innerText = sumQty;
+    } else {
+        for (let i = 0; i < items.length; i++) {
+            sumPrice = sumPrice + (items[i].prix * items[i].quantity);
+            sumQty = sumQty + parseInt(items[i].quantity);
         };
-    
+
+        totalPrice.innerText = sumPrice;
+        totalQuantity.innerText = parseInt(sumQty);
+    };
+
 };
 
 sumTotal();
@@ -256,23 +243,23 @@ let form = document.querySelector(".cart__order__form");
 //variable for object
 let prenom;
 let nom;
-let adresse;
+let address;
 let ville;
 let email;
 
 // prenom
 
 // listening modification
-form.firstName.addEventListener('change', function(){
+form.firstName.addEventListener('change', function () {
     validFirstName(this)
 })
 
 // validation du input
-const validFirstName = function(inputFirstName){
+const validFirstName = function (inputFirstName) {
     const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
     let errorFirstName = document.querySelector('#firstNameErrorMsg');
 
-    if(regexName.test(inputFirstName.value)) {
+    if (regexName.test(inputFirstName.value)) {
         errorFirstName.innerHTML = 'valide';
         prenom = form.firstName.value;
         console.log(prenom)
@@ -284,16 +271,16 @@ const validFirstName = function(inputFirstName){
 // nom
 
 // listening modification
-form.lastName.addEventListener('change', function(){
+form.lastName.addEventListener('change', function () {
     validLastName(this)
 })
 
 // validation du input
-const validLastName = function(inputLastName){
+const validLastName = function (inputLastName) {
     const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
     let errorLastName = document.querySelector('#lastNameErrorMsg');
 
-    if(regexName.test(inputLastName.value)) {
+    if (regexName.test(inputLastName.value)) {
         errorLastName.innerHTML = 'valide';
         nom = form.lastName.value;
         console.log(nom)
@@ -305,19 +292,19 @@ const validLastName = function(inputLastName){
 // adresse
 
 // listening modification
-form.address.addEventListener('change', function(){
+form.address.addEventListener('change', function () {
     validAddress(this)
 })
 
 // validation du input
-const validAddress = function(inputAddress){
+const validAddress = function (inputAddress) {
     const regexAddress = /^[#.0-9a-zA-Z\s,-]+$/i;
     let addressErrorMsg = document.querySelector('#addressErrorMsg');
 
-    if(regexAddress.test(inputAddress.value)) {
+    if (regexAddress.test(inputAddress.value)) {
         addressErrorMsg.innerHTML = 'valide';
-        adresse = form.address.value;
-        console.log(adresse)
+        address = form.address.value;
+        console.log(address)
     } else {
         addressErrorMsg.innerHTML = "non valide";
     }
@@ -326,16 +313,16 @@ const validAddress = function(inputAddress){
 // ville
 
 // listening modification
-form.city.addEventListener('change', function(){
+form.city.addEventListener('change', function () {
     validCity(this)
 })
 
 // validation du input
-const validCity = function(inputCity){
+const validCity = function (inputCity) {
     const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
     let cityErrorMsg = document.querySelector('#cityErrorMsg');
 
-    if(regexName.test(inputCity.value)) {
+    if (regexName.test(inputCity.value)) {
         cityErrorMsg.innerHTML = 'valide';
         ville = form.city.value;
         console.log(ville)
@@ -347,16 +334,16 @@ const validCity = function(inputCity){
 // mail
 
 // listening modification
-form.email.addEventListener('change', function(){
+form.email.addEventListener('change', function () {
     validEmail(this)
 })
 
 // validation du input
-const validEmail = function(inputMail){
+const validEmail = function (inputMail) {
     const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let emailErrorMsg = document.querySelector('#emailErrorMsg');
 
-    if(regexMail.test(inputMail.value)) {
+    if (regexMail.test(inputMail.value)) {
         emailErrorMsg.innerHTML = 'valide';
         email = form.email.value;
         console.log(email)
@@ -365,54 +352,69 @@ const validEmail = function(inputMail){
     }
 }
 
-// chiffre aleatoire à 10 chiffres pour id commande
-let min = 0000000000;
-let max = 9999999999;
-let orderId = Math.floor(Math.random() * (max - min)) + min;
-
 //action on submit
 const commande = document.querySelector('#order');
 
-const host = "http://localhost:3000/api/products/";
+const postUrl = "http://localhost:3000/api/products/order";
+
 const confirmationUrl = "./confirmation.html?id=";
-
-console.log("test")
-
 
 
 if (storage != null) {
-commande.onclick = () => {
-    const info = {
-        firstName: prenom,
-        lastName: nom,
-        adresse: adresse,
-        city: ville,
-        mail: email
-    }
+    commande.onclick = () => {
 
-    if (info.firstName && info.lastName && info.adresse && info.city && info.mail) {
-        
-        localStorage.setItem("commande", JSON.stringify(info));
+        let products = [];
 
-        let commandFetch = () => {
-            fetch(host)
-                .then((response) => response.json())
-                .then((data) => {
-                    window.location.href = confirmationUrl + orderId;
-                    // alert('etape atteinte')
-                })
-                .catch(() => {
-                    alert("Une erreur est survenue, merci de revenir plus tard.");
-                }); // catching errors
+        const makeJson = () => {
+            const contact = {
+                firstName: prenom,
+                lastName: nom,
+                address: address,
+                city: ville,
+                email: email
             }
-            
-            commandFetch();
-            
-        } else {
-            
-            alert("donnée invalide")
-            
+
+            for (i = 0; i < items.length; i++) {
+                if (products.find((e) => e == items[i].id)) {
+                    console.log("not found");
+                } else {
+                    products.push(items[i].id);
+                }
+            }
+
+
+            let jsonData = { contact, products };
+            return jsonData;
         }
-        
+
+        let jsonData = makeJson();
+
+        if (jsonData != null) {
+
+            let myInit = {
+                method: "POST",
+                body: JSON.stringify(jsonData),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            let commandFetch = () => {
+                fetch(postUrl, myInit)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        localStorage.clear();
+                        localStorage.setItem("orderId", data.orderId);
+
+                        document.location.href = "confirmation.html";
+                    })
+                    .catch((err) => {
+                        alert("Problème avec fetch : " + err.message);
+                    });
+            }
+            commandFetch();
+        }
     }
-}
+};
