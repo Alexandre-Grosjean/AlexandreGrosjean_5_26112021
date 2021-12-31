@@ -387,9 +387,14 @@ if (storage != null) {
             return jsonData;
         }
 
+        makeJson();
         let jsonData = makeJson();
 
-        if (jsonData != null) {
+        if (makeJson()["contact"].firstName != null &&
+            makeJson()["contact"].lastName != null &&
+            makeJson()["contact"].address != null &&
+            makeJson()["contact"].city != null &&
+            makeJson()["contact"].email != null ) {
 
             let myInit = {
                 method: "POST",
