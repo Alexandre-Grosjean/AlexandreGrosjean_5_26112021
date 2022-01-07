@@ -270,94 +270,7 @@ sumTotal();
 //************************************ test code  *********************************/
 
 
-//regex & formulaire
-
-let form = document.querySelector(".cart__order__form");
-
-//variable for object
-let prenom;
-let nom;
-let address;
-let ville;
-let email;
-
-// prenom
-
-// listening modification
-form.firstName.addEventListener('change', function () {
-    validFirstName(this)
-})
-
-const fieldValidation = function (value, htmlSelector, regex) {
-    const regexName = regex;
-    let errorFirstName = document.querySelector('#' + htmlSelector);
-
-    if (regexName.test(value)) {
-        errorFirstName.innerHTML = 'valide';
-        console.log(prenom)
-    } else {
-        errorFirstName.innerHTML = "non valide";
-        console.log('error input')
-    }
-}
-
-// validation du input
-const validFirstName = function (inputFirstName) {
-    fieldValidation(inputFirstName, 'firstNameErrorMsg', /^[a-z][a-z '-.,]{1,31}$|^$/i);
-}
-
-// nom
-
-// listening modification
-form.lastName.addEventListener('change', function () {
-    validLastName(this)
-})
-
-// validation du input
-const validLastName = function (inputLastName) {
-    fieldValidation(inputLastName, 'lastNameErrorMsg', /^[a-z][a-z '-.,]{1,31}$|^$/i);
-}
-
-// adresse
-
-// listening modification
-form.address.addEventListener('change', function () {
-    validAddress(this)
-})
-
-// validation du input
-const validAddress = function (inputAddress) {
-    fieldValidation(inputAddress, 'addressErrorMsg',  /^[#.0-9a-zA-Z\s,-]+$/i);
-}
-
-// ville
-
-// listening modification
-form.city.addEventListener('change', function () {
-    validCity(this)
-})
-
-// validation du input
-const validCity = function (inputCity) {
-    fieldValidation(inputCity, 'cityErrorMsg', /^[a-z][a-z '-.,]{1,31}$|^$/i);
-}
-
-// mail
-
-// listening modification
-form.email.addEventListener('change', function () {
-    validEmail(this)
-})
-
-// validation du input
-const validEmail = function (inputMail) {
-    const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    fieldValidation(inputMail, 'emailErrorMsg', regexMail);
-}
-
-//************************************ fin test code ******************************/
-
-// // regex & formulaire
+// //regex & formulaire
 
 // let form = document.querySelector(".cart__order__form");
 
@@ -375,18 +288,22 @@ const validEmail = function (inputMail) {
 //     validFirstName(this)
 // })
 
-// // validation du input
-// const validFirstName = function (inputFirstName) {
-//     const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
-//     let errorFirstName = document.querySelector('#firstNameErrorMsg');
+// const fieldValidation = function (value, htmlSelector, regex) {
+//     const regexName = regex;
+//     let errorFirstName = document.querySelector('#' + htmlSelector);
 
-//     if (regexName.test(inputFirstName.value)) {
+//     if (regexName.test(value)) {
 //         errorFirstName.innerHTML = 'valide';
-//         prenom = form.firstName.value;
 //         console.log(prenom)
 //     } else {
 //         errorFirstName.innerHTML = "non valide";
+//         console.log('error input')
 //     }
+// }
+
+// // validation du input
+// const validFirstName = function (inputFirstName) {
+//     fieldValidation(inputFirstName, 'firstNameErrorMsg', /^[a-z][a-z '-.,]{1,31}$|^$/i);
 // }
 
 // // nom
@@ -398,16 +315,7 @@ const validEmail = function (inputMail) {
 
 // // validation du input
 // const validLastName = function (inputLastName) {
-//     const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
-//     let errorLastName = document.querySelector('#lastNameErrorMsg');
-
-//     if (regexName.test(inputLastName.value)) {
-//         errorLastName.innerHTML = 'valide';
-//         nom = form.lastName.value;
-//         console.log(nom)
-//     } else {
-//         errorLastName.innerHTML = "non valide";
-//     }
+//     fieldValidation(inputLastName, 'lastNameErrorMsg', /^[a-z][a-z '-.,]{1,31}$|^$/i);
 // }
 
 // // adresse
@@ -419,16 +327,7 @@ const validEmail = function (inputMail) {
 
 // // validation du input
 // const validAddress = function (inputAddress) {
-//     const regexAddress = /^[#.0-9a-zA-Z\s,-]+$/i;
-//     let addressErrorMsg = document.querySelector('#addressErrorMsg');
-
-//     if (regexAddress.test(inputAddress.value)) {
-//         addressErrorMsg.innerHTML = 'valide';
-//         address = form.address.value;
-//         console.log(address)
-//     } else {
-//         addressErrorMsg.innerHTML = "non valide";
-//     }
+//     fieldValidation(inputAddress, 'addressErrorMsg',  /^[#.0-9a-zA-Z\s,-]+$/i);
 // }
 
 // // ville
@@ -440,16 +339,7 @@ const validEmail = function (inputMail) {
 
 // // validation du input
 // const validCity = function (inputCity) {
-//     const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
-//     let cityErrorMsg = document.querySelector('#cityErrorMsg');
-
-//     if (regexName.test(inputCity.value)) {
-//         cityErrorMsg.innerHTML = 'valide';
-//         ville = form.city.value;
-//         console.log(ville)
-//     } else {
-//         cityErrorMsg.innerHTML = "non valide";
-//     }
+//     fieldValidation(inputCity, 'cityErrorMsg', /^[a-z][a-z '-.,]{1,31}$|^$/i);
 // }
 
 // // mail
@@ -462,16 +352,126 @@ const validEmail = function (inputMail) {
 // // validation du input
 // const validEmail = function (inputMail) {
 //     const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//     let emailErrorMsg = document.querySelector('#emailErrorMsg');
-
-//     if (regexMail.test(inputMail.value)) {
-//         emailErrorMsg.innerHTML = 'valide';
-//         email = form.email.value;
-//         console.log(email)
-//     } else {
-//         emailErrorMsg.innerHTML = "non valide";
-//     }
+//     fieldValidation(inputMail, 'emailErrorMsg', regexMail);
 // }
+
+//************************************ fin test code ******************************/
+
+// regex & formulaire
+
+let form = document.querySelector(".cart__order__form");
+
+//variable for object
+let prenom;
+let nom;
+let address;
+let ville;
+let email;
+
+// prenom
+
+// listening modification
+form.firstName.addEventListener('change', function () {
+    validFirstName(this)
+})
+
+// validation du input
+const validFirstName = function (inputFirstName) {
+    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+    let errorFirstName = document.querySelector('#firstNameErrorMsg');
+
+    if (regexName.test(inputFirstName.value)) {
+        errorFirstName.innerHTML = 'valide';
+        prenom = form.firstName.value;
+        console.log(prenom)
+    } else {
+        errorFirstName.innerHTML = "non valide";
+    }
+}
+
+// nom
+
+// listening modification
+form.lastName.addEventListener('change', function () {
+    validLastName(this)
+})
+
+// validation du input
+const validLastName = function (inputLastName) {
+    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+    let errorLastName = document.querySelector('#lastNameErrorMsg');
+
+    if (regexName.test(inputLastName.value)) {
+        errorLastName.innerHTML = 'valide';
+        nom = form.lastName.value;
+        console.log(nom)
+    } else {
+        errorLastName.innerHTML = "non valide";
+    }
+}
+
+// adresse
+
+// listening modification
+form.address.addEventListener('change', function () {
+    validAddress(this)
+})
+
+// validation du input
+const validAddress = function (inputAddress) {
+    const regexAddress = /^[#.0-9a-zA-Z\s,-]+$/i;
+    let addressErrorMsg = document.querySelector('#addressErrorMsg');
+
+    if (regexAddress.test(inputAddress.value)) {
+        addressErrorMsg.innerHTML = 'valide';
+        address = form.address.value;
+        console.log(address)
+    } else {
+        addressErrorMsg.innerHTML = "non valide";
+    }
+}
+
+// ville
+
+// listening modification
+form.city.addEventListener('change', function () {
+    validCity(this)
+})
+
+// validation du input
+const validCity = function (inputCity) {
+    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+    let cityErrorMsg = document.querySelector('#cityErrorMsg');
+
+    if (regexName.test(inputCity.value)) {
+        cityErrorMsg.innerHTML = 'valide';
+        ville = form.city.value;
+        console.log(ville)
+    } else {
+        cityErrorMsg.innerHTML = "non valide";
+    }
+}
+
+// mail
+
+// listening modification
+form.email.addEventListener('change', function () {
+    validEmail(this)
+})
+
+// validation du input
+const validEmail = function (inputMail) {
+    const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let emailErrorMsg = document.querySelector('#emailErrorMsg');
+
+    if (regexMail.test(inputMail.value)) {
+        emailErrorMsg.innerHTML = 'valide';
+        email = form.email.value;
+        console.log(email)
+    } else {
+        emailErrorMsg.innerHTML = "non valide";
+    }
+}
 
 //action on submit
 const commande = document.querySelector('#order');
