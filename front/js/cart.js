@@ -360,6 +360,9 @@ sumTotal();
 // regex & formulaire
 
 let form = document.querySelector(".cart__order__form");
+const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+const regexAddress = /^[#.0-9a-zA-Z\s,-]+$/i;
+const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 //variable for object
 let prenom;
@@ -377,7 +380,6 @@ form.firstName.addEventListener('change', function () {
 
 // validation du input
 const validFirstName = function (inputFirstName) {
-    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
     let errorFirstName = document.querySelector('#firstNameErrorMsg');
 
     if (regexName.test(inputFirstName.value)) {
@@ -398,7 +400,6 @@ form.lastName.addEventListener('change', function () {
 
 // validation du input
 const validLastName = function (inputLastName) {
-    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
     let errorLastName = document.querySelector('#lastNameErrorMsg');
 
     if (regexName.test(inputLastName.value)) {
@@ -419,7 +420,6 @@ form.address.addEventListener('change', function () {
 
 // validation du input
 const validAddress = function (inputAddress) {
-    const regexAddress = /^[#.0-9a-zA-Z\s,-]+$/i;
     let addressErrorMsg = document.querySelector('#addressErrorMsg');
 
     if (regexAddress.test(inputAddress.value)) {
@@ -440,7 +440,6 @@ form.city.addEventListener('change', function () {
 
 // validation du input
 const validCity = function (inputCity) {
-    const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
     let cityErrorMsg = document.querySelector('#cityErrorMsg');
 
     if (regexName.test(inputCity.value)) {
@@ -461,7 +460,6 @@ form.email.addEventListener('change', function () {
 
 // validation du input
 const validEmail = function (inputMail) {
-    const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let emailErrorMsg = document.querySelector('#emailErrorMsg');
 
     if (regexMail.test(inputMail.value)) {
