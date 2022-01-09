@@ -8,17 +8,16 @@ const id = params.get("id");
 // creation constante pour function
 const hostProduct = host + id;
 
-console.log(hostProduct)
-
 // fetch pour tableau .json
 let canapeFetch = () => {
     fetch(hostProduct)
         .then((response) => response.json())
         .then((data) => {
-
-// img via params & hostProduct
+            
+            // img via params & hostProduct
             let img = document.querySelector(".item__img");
             img.innerHTML = `<img src="${data.imageUrl}" alt="${data.altTxt}">`;
+            localStorage.setItem("img", data.imageUrl);
 
 // titre via params & hostProduct
             let title = document.querySelector("#title");
@@ -37,14 +36,12 @@ let canapeFetch = () => {
             for (i = 0; i < data.colors.length; i++) {
                 couleur.innerHTML += `<option value="${data.colors[i]}">${data.colors[i]}</option>`;
               }
-
         }
 )};
 
 canapeFetch();
 
 // local storage
-
 
 let card = [];
 
@@ -63,7 +60,8 @@ addToCart.onclick = () => {
         title: title.innerText,
         quantity: parseInt(qty.value),
         color: color.value,
-        prix: parseFloat(price.innerText)
+        prix: parseFloat(price.innerText),
+        imgKanap: localStorage.getItem("img")
     }
 
     //variable & condition for array
