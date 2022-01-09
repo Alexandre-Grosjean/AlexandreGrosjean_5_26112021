@@ -47,50 +47,6 @@ const removeStorage = (product) => {
 // vider localStorage de l'image
 localStorage.removeItem("img")
 
-
-//         //************************************ fin test code ******************************/
-
-//         // switch (identification.id) {
-//         //     case '107fb5b75607497b96722bda5b504926':
-//         //         identification.img = "../../back/images/kanap01.jpeg";
-//         //         break;
-
-//         //     case '415b7cacb65d43b2b5c1ff70f3393ad1':
-//         //         identification.img = "../../back/images/kanap02.jpeg";
-//         //         break;
-
-//         //     case '055743915a544fde83cfdfc904935ee7':
-//         //         identification.img = "../../back/images/kanap03.jpeg";
-//         //         break;
-
-//         //     case 'a557292fe5814ea2b15c6ef4bd73ed83':
-//         //         identification.img = "../../back/images/kanap04.jpeg";
-//         //         break;
-
-//         //     case '8906dfda133f4c20a9d0e34f18adcf06':
-//         //         identification.img = "../../back/images/kanap05.jpeg";
-//         //         break;
-
-//         //     case '77711f0e466b4ddf953f677d30b0efc9':
-//         //         identification.img = "../../back/images/kanap06.jpeg";
-//         //         break;
-
-//         //     case '034707184e8e4eefb46400b5a3774b5f':
-//         //         identification.img = "../../back/images/kanap07.jpeg";
-//         //         break;
-
-//         //     case 'a6ec5b49bd164d7fbe10f37b6363f9fb':
-//         //         identification.img = "../../back/images/kanap08.jpeg";
-//         //         break;
-
-//         //     default:
-//         //         console.log("cart empty")
-//         //         break;
-//         // }
-//     }
-
-// };
-
 // function for cart
 
 if (storage != null) {
@@ -229,13 +185,6 @@ const sumTotal = () => {
 
 sumTotal();
 
-
-
-
-
-//************************************ code modifié *********************************/
-
-
 //regex & formulaire
 
 let form = document.querySelector(".cart__order__form");
@@ -330,123 +279,6 @@ const validEmail = function (inputMail) {
     email = form.email.value;
 }
 
-//************************************ fin code modifié ******************************/
-
-// // regex & formulaire
-
-// let form = document.querySelector(".cart__order__form");
-// const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
-// const regexAddress = /^[#.0-9a-zA-Z\s,-]+$/i;
-// const regexMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-// //variable for object
-// let prenom;
-// let nom;
-// let address;
-// let ville;
-// let email;
-
-// // prenom
-
-// // listening modification
-// form.firstName.addEventListener('change', function () {
-//     validFirstName(this)
-// })
-
-// // validation du input
-// const validFirstName = function (inputFirstName) {
-//     let errorFirstName = document.querySelector('#firstNameErrorMsg');
-
-//     if (regexName.test(inputFirstName.value)) {
-//         errorFirstName.innerHTML = 'valide';
-//         prenom = form.firstName.value;
-//         console.log(prenom)
-//     } else {
-//         errorFirstName.innerHTML = "non valide";
-//     }
-// }
-
-// // nom
-
-// // listening modification
-// form.lastName.addEventListener('change', function () {
-//     validLastName(this)
-// })
-
-// // validation du input
-// const validLastName = function (inputLastName) {
-//     let errorLastName = document.querySelector('#lastNameErrorMsg');
-
-//     if (regexName.test(inputLastName.value)) {
-//         errorLastName.innerHTML = 'valide';
-//         nom = form.lastName.value;
-//         console.log(nom)
-//     } else {
-//         errorLastName.innerHTML = "non valide";
-//     }
-// }
-
-// // adresse
-
-// // listening modification
-// form.address.addEventListener('change', function () {
-//     validAddress(this)
-// })
-
-// // validation du input
-// const validAddress = function (inputAddress) {
-//     let addressErrorMsg = document.querySelector('#addressErrorMsg');
-
-//     if (regexAddress.test(inputAddress.value)) {
-//         addressErrorMsg.innerHTML = 'valide';
-//         address = form.address.value;
-//         console.log(address)
-//     } else {
-//         addressErrorMsg.innerHTML = "non valide";
-//     }
-// }
-
-// // ville
-
-// // listening modification
-// form.city.addEventListener('change', function () {
-//     validCity(this)
-// })
-
-// // validation du input
-// const validCity = function (inputCity) {
-//     let cityErrorMsg = document.querySelector('#cityErrorMsg');
-
-//     if (regexName.test(inputCity.value)) {
-//         cityErrorMsg.innerHTML = 'valide';
-//         ville = form.city.value;
-//         console.log(ville)
-//     } else {
-//         cityErrorMsg.innerHTML = "non valide";
-//     }
-// }
-
-// // mail
-
-// // listening modification
-// form.email.addEventListener('change', function () {
-//     validEmail(this)
-// })
-
-// // validation du input
-// const validEmail = function (inputMail) {
-//     let emailErrorMsg = document.querySelector('#emailErrorMsg');
-
-//     if (regexMail.test(inputMail.value)) {
-//         emailErrorMsg.innerHTML = 'valide';
-//         email = form.email.value;
-//         console.log(email)
-//     } else {
-//         emailErrorMsg.innerHTML = "non valide";
-//     }
-// }
-
-
 //action on submit
 const commande = document.querySelector('#order');
 
@@ -485,21 +317,13 @@ if (storage != null) {
         makeJson();
         let jsonData = makeJson();
 
-//************************************  code modifié ******************************/
+
 
         const getField = (field) => {
             return makeJson()["contact"][field];
         }
 
         if (getField('firstName', 'lastName', 'address', 'city', 'email') != null) {
-
-//************************************fin code modifié ******************************/
-
-            // if (makeJson()["contact"].firstName != null &&
-            //     makeJson()["contact"].lastName != null &&
-            //     makeJson()["contact"].address != null &&
-            //     makeJson()["contact"].city != null &&
-            //     makeJson()["contact"].email != null ) {
 
             let myInit = {
                 method: "POST",
@@ -509,8 +333,6 @@ if (storage != null) {
                     'Content-Type': 'application/json'
                 }
             };
-
-//************************************  code modifié ******************************/
 
             let commandFetch = () => {
                 fetch(postUrl, myInit)
@@ -530,25 +352,3 @@ if (storage != null) {
     }
             
 }
-
-// ************************************fin code modifié ******************************/
-
-// let commandFetch = () => {
-//     fetch(postUrl, myInit)
-//         .then((response) => response.json())
-//         .then((data) => {
-//             console.log(data);
-//             localStorage.clear();
-//             localStorage.setItem("orderId", data.orderId);
-
-//             document.location.href = "confirmation.html";
-//         })
-//         .catch((err) => {
-//             alert("Problème avec fetch : " + err.message);
-//         });
-// }
-// commandFetch();
-
-//         }
-//     }
-// }

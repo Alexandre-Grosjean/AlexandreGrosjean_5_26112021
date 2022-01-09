@@ -41,9 +41,6 @@ let canapeFetch = () => {
 
 canapeFetch();
 
-
-// console.log()
-
 // local storage
 
 let card = [];

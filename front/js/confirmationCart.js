@@ -1,14 +1,3 @@
-// const getId = () => {
-//     const commandeId = document.querySelector("#orderId");
-//     commandeId.innerHTML = localStorage.getItem("orderId");
-//     console.log(localStorage.getItem("orderId"))
-//     localStorage.clear();
-// }
-
-// getId();
-
-// ************************************ code test ***********************************/
-
 const getId = () => {
 
 const params = (new URL(document.location)).searchParams;
@@ -18,5 +7,3 @@ const commandeId = document.querySelector("#orderId");
 }
 
 getId();
-
-//************************************* fin code test *******************************/
