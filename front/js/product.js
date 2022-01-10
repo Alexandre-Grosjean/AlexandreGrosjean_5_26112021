@@ -70,10 +70,8 @@ addToCart.onclick = () => {
         card.push(cart);
         localStorage.setItem("cart", JSON.stringify(card));
     } else {
-        // console.log("ligne 75", id, color);
         let item = storage.filter (element => { return (element.id == id && element.color == color.value)
         });
-        // console.log("ligne 78", item);
         if(item.length > 0) {
             item[0].quantity += parseInt(qty.value);
             item[0].prix += parseInt(qty.value)*parseFloat(price.innerText);

@@ -7,10 +7,7 @@ let canapeFetch = () => {
     fetch(host)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
-
     let productSection = document.getElementById('items');
-
 
 // boucle pour chaque carte
     for (i = 0; i < data.length; i++) {
