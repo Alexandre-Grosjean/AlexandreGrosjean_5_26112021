@@ -50,7 +50,7 @@ localStorage.removeItem("img")
 // function for cart
 
 if (storage != null) {
-    
+
     for (const element of items) {
 
         // function for card cart     
@@ -97,13 +97,11 @@ if (storage != null) {
     const cardID = () => {
 
         for (const elements of items) {
-            // console.log(elements.id)
             deleteStorage.forEach(element => {
                 if (element.dataset.id + element.dataset.color == elements.id + elements.color) {
                     let cart = getStorage();
                     element.onclick = () => {
                         cart = cart.filter(p => p.id + p.color != element.dataset.id + element.dataset.color);
-                        console.log(element.dataset.id + " / " + element.dataset.color);
                         saveStorage(cart);
                         window.location.reload();
                     }
@@ -114,28 +112,22 @@ if (storage != null) {
     cardID()
 }
 
-// modification qty of product
-
 const qtyValue = document.querySelectorAll("input.itemQuantity");
-// console.log(qtyValue.value)
 
 if (storage != null) {
     const cardQty = () => {
 
         for (const elements of items) {
             qtyValue.forEach(element => {
-                // console.log(element.value + element.dataset.id == elements.quantity + elements.id);
                 if (element.value + element.dataset.id + element.dataset.color == elements.quantity + elements.id + elements.color) {
-                    // let cart = getStorage();
+
                     element.onclick = () => {
-                        console.log(element.value + " / " + element.dataset.id + " / " + element.dataset.color);
                         let cart = getStorage();
 
                         const changeQuantity = (product, quantity) => {
                             let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
                             if (foundProduct != undefined) {
                                 foundProduct.quantity = element.value
-                                // console.log(foundProduct.quantity = element.value)
                                 if (foundProduct.quantity <= 0) {
                                     removeStorage(foundProduct);
                                     window.location.reload();
@@ -198,14 +190,12 @@ let email;
 
 // prenom
 
-
 const fieldValidation = function (value, htmlSelector, regex) {
     const regexName = regex;
     let errorFirstName = document.querySelector('#' + htmlSelector);
-    
+
     if (regexName.test(value)) {
         errorFirstName.innerHTML = 'valide';
-        // console.log(prenom)
     } else {
         errorFirstName.innerHTML = "non valide";
     }
@@ -213,15 +203,12 @@ const fieldValidation = function (value, htmlSelector, regex) {
 
 // listening modification
 form.firstName.addEventListener('change', function (e) {
-    console.log(e.target.value);
     validFirstName(e.target.value)
 })
 
 // validation du input
 const validFirstName = function (inputFirstName) {
-    console.log(inputFirstName)
-    
-    fieldValidation(inputFirstName, 'firstNameErrorMsg', /^[a-z][a-z '-.,]{1,31}$|^$/i);
+    fieldValidation(inputFirstName, 'firstNameErrorMsg', /^[#.0-9a-zA-Z\s,-]+$/i);
     prenom = form.firstName.value;
 }
 
@@ -229,13 +216,12 @@ const validFirstName = function (inputFirstName) {
 
 // listening modification
 form.lastName.addEventListener('change', function (e) {
-    console.log(e.target.value)
     validLastName(e.target.value)
 })
 
 // validation du input
 const validLastName = function (inputLastName) {
-    fieldValidation(inputLastName, 'lastNameErrorMsg', /^[a-z][a-z '-.,]{1,31}$|^$/i);
+    fieldValidation(inputLastName, 'lastNameErrorMsg', /^[#.0-9a-zA-Z\s,-]+$/i);
     nom = form.lastName.value;
 }
 
@@ -248,7 +234,7 @@ form.address.addEventListener('change', function (e) {
 
 // validation du input
 const validAddress = function (inputAddress) {
-    fieldValidation(inputAddress, 'addressErrorMsg',  /^[#.0-9a-zA-Z\s,-]+$/i);
+    fieldValidation(inputAddress, 'addressErrorMsg', /^[#.0-9a-zA-Z\s,-]+$/i);
     address = form.address.value;
 }
 
@@ -261,7 +247,7 @@ form.city.addEventListener('change', function (e) {
 
 // validation du input
 const validCity = function (inputCity) {
-    fieldValidation(inputCity, 'cityErrorMsg', /^[a-z][a-z '-.,]{1,31}$|^$/i);
+    fieldValidation(inputCity, 'cityErrorMsg', /^[#.0-9a-zA-Z\s,-]+$/i);
     ville = form.city.value;
 }
 
@@ -338,7 +324,6 @@ if (storage != null) {
                 fetch(postUrl, myInit)
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log(data);
                         localStorage.clear();
                         // localStorage.setItem("orderId", data.orderId);
                         document.location.href = `confirmation.html?id=${data.orderId}`;
@@ -350,5 +335,5 @@ if (storage != null) {
             commandFetch();
         }
     }
-            
+
 }
