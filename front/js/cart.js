@@ -57,31 +57,79 @@ if (storage != null) {
 
 
         const kanapCard = () => {
-            const card =
-                `
-                <article class="cart__item" data-id="${element.id}" data-color="${element.color}">
-                <div class="cart__item__img">
-                <img src="${element.imgKanap}" alt="Photographie d'un canapé">
-                </div>
-                <div class="cart__item__content">
-                <div class="cart__item__content__description">
-                <h2>${element.title}</h2>
-                <p>${element.color}</p>
-                <p>${element.prix * element.quantity} €</p>
-                </div>
-                <div class="cart__item__content__settings">
-                <div class="cart__item__content__settings__quantity">
-                <p>Qté : </p>
-                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${element.quantity}" data-id="${element.id}" data-color="${element.color}">
-                </div>
-                <div class="cart__item__content__settings__delete">
-                <p class="deleteItem" data-id="${element.id}" data-color="${element.color}">Supprimer</p>
-                </div>
-                </div>
-                </div>
-                </article>  
-            `;
-            cart__items.innerHTML += card;
+
+            let cartCard = document.querySelector('#cart__items');
+
+            let article = document.createElement("article");
+            cartCard.appendChild(article);
+            article.classList.add("cart__item");
+            article.dataset.id = element.id;
+            article.dataset.color = element.color;
+
+            let divItemImg = document.createElement("div");
+            article.appendChild(divItemImg);
+            divItemImg.classList.add("cart__item__img")
+
+            let imgOfKanap = document.createElement("img");
+            divItemImg.appendChild(imgOfKanap);
+            imgOfKanap.src = element.imgKanap;
+            imgOfKanap.alt = "Photographie d'un canapé";
+
+            let divItemContent = document.createElement("div");
+            article.appendChild(divItemContent);
+            divItemContent.classList.add("cart__item__content");
+
+            let divItemContentDescription = document.createElement("div");
+            divItemContent.appendChild(divItemContentDescription);
+            divItemContentDescription.classList.add("cart__item__content__description")
+
+            let title = document.createElement("h2");
+            divItemContentDescription.appendChild(title);
+            title.innerText = element.title;
+
+            let color = document.createElement("p");
+            divItemContentDescription.appendChild(color);
+            color.innerText = element.color;
+
+            let qtyProduct = document.createElement("p");
+            divItemContentDescription.appendChild(qtyProduct);
+            qtyProduct.innerText = element.prix * element.quantity + " €";
+
+            let divItemContentSetting = document.createElement("div");
+            divItemContent.appendChild(divItemContentSetting);
+            divItemContentSetting.classList.add("cart__item__content__settings")
+
+            let divItemContentSettingQuantity = document.createElement("div");
+            divItemContentSetting.appendChild(divItemContentSettingQuantity);
+            divItemContentSettingQuantity.classList.add("cart__item__content__settings__quantity")
+
+            let qty = document.createElement("p");
+            divItemContentSettingQuantity.appendChild(qty);
+            qty.innerText = "Qté :";
+
+            let input = document.createElement("input");
+            divItemContentSettingQuantity.appendChild(input);
+            input.type = "number";
+            input.name = "itemQuantity";
+            input.min = 1;
+            input.max = 100;
+            input.value = element.quantity;
+            input.classList.add("itemQuantity")
+            input.dataset.id = element.id;
+            input.dataset.color = element.color;
+
+            let divItemContentSettingDelete = document.createElement("div");
+            divItemContent.appendChild(divItemContentSettingDelete);
+            divItemContentSettingDelete.classList.add("cart__item__content__settings__delete");
+
+            let deleteItem = document.createElement('p');
+            divItemContentSettingDelete.appendChild(deleteItem);
+            deleteItem.classList.add("deleteItem");
+            deleteItem.innerText = "Supprimer";
+            deleteItem.dataset.id = element.id;
+            deleteItem.dataset.color = element.color;
+
+
         };
         kanapCard();
     };
@@ -127,13 +175,19 @@ if (storage != null) {
                         const changeQuantity = (product, quantity) => {
                             let foundProduct = cart.find(p => p.id + p.color == elements.id + elements.color);
                             if (foundProduct != undefined) {
-                                foundProduct.quantity = element.value
-                                if (foundProduct.quantity <= 0) {
-                                    removeStorage(foundProduct);
-                                    window.location.reload();
+                                if (element.value > 100) {
+                                    element.value = 100;
+                                    alert('veuillez choisir entre 1 et 100 articles maximum');
                                 } else {
-                                    saveStorage(cart);
-                                    window.location.reload();
+                                    foundProduct.quantity = element.value
+                                    if (foundProduct.quantity <= 0) {
+                                        removeStorage(foundProduct);
+                                        window.location.reload();
+                                    } else {
+                                        saveStorage(cart);
+                                        window.location.reload();
+                                    }
+
                                 }
                             }
                         }
