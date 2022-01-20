@@ -11,16 +11,28 @@ let canapeFetch = () => {
 
 // boucle pour chaque carte
     for (i = 0; i < data.length; i++) {
-        const card = `
-        <a href="./product.html?id=${data[i]._id}"> 
-            <article>
-                <img src="${data[i].imageUrl}" alt="${data[i].altTxt}" />
-                <h3 class="productName">${data[i].name}</h3>
-                <p class="productDescription">${data[i].description}</p>
-            </article>
-        </a>
-        `;
-        productSection.innerHTML += card;
+
+        let productLink = document.createElement("a");
+        productSection.appendChild(productLink);
+        productLink.href = `./product.html?id=${data[i]._id}`;
+
+        let article = document.createElement("article");
+        productLink.appendChild(article);
+
+        let imgOfKanap = document.createElement("img");
+        article.appendChild(imgOfKanap);
+        imgOfKanap.src = data[i].imageUrl
+        imgOfKanap.alt = data[i].altTxt
+
+        let titleKanap = document.createElement("h3");
+        article.appendChild(titleKanap);
+        titleKanap.classList.add("productName");
+        titleKanap.append(data[i].name);
+
+        let infoKanap = document.createElement("p");
+        article.appendChild(infoKanap);
+        infoKanap.classList.add("productDescription");
+        infoKanap.append(data[i].description)
       }
     });  
 };

@@ -13,33 +13,57 @@ let canapeFetch = () => {
     fetch(hostProduct)
         .then((response) => response.json())
         .then((data) => {
-            
+
             // img via params & hostProduct
+
+            let imgOfKanap = document.createElement("img");
             let img = document.querySelector(".item__img");
-            img.innerHTML = `<img src="${data.imageUrl}" alt="${data.altTxt}">`;
+            img.appendChild(imgOfKanap)
+            imgOfKanap.src = data.imageUrl;
+            imgOfKanap.alt = data.altTxt;
             localStorage.setItem("img", data.imageUrl);
 
-// titre via params & hostProduct
+
+            // titre via params & hostProduct
             let title = document.querySelector("#title");
-            title.innerHTML = `${data.name}`;
+            title.innerText = data.name;
 
-// prix via params & hostProduct
+            // prix via params & hostProduct
             let price = document.querySelector("#price");
-            price.innerHTML = `${data.price}`;
+            price.innerText = data.price;
 
-// description via params & hostProduct
+            // description via params & hostProduct
             let description = document.querySelector("#description");
-            description.innerHTML = `${data.description}`;
+            description.innerText = data.description;
 
-// couleur via params & hostProduct
+            // couleur via params & hostProduct
             let couleur = document.querySelector("#colors");
             for (i = 0; i < data.colors.length; i++) {
-                couleur.innerHTML += `<option value="${data.colors[i]}">${data.colors[i]}</option>`;
-              }
+
+                let couleurOfKanap = document.createElement("option");
+                couleur.append(couleurOfKanap);
+                couleurOfKanap.value = data.colors[i];
+                couleurOfKanap.innerText = data.colors[i];
+
+            }
         }
-)};
+        )
+};
 
 canapeFetch();
+
+// quantity limit 
+
+let qtyLimit = document.querySelector('#quantity');
+
+qtyLimit.addEventListener("change", function () {
+    
+    if (qtyLimit.value > 100) {
+        qtyLimit.value = 100;
+        alert('veuillez choisir entre 1 et 100 articles maximum');
+    }
+    
+})
 
 // local storage
 
@@ -52,8 +76,8 @@ addToCart.onclick = () => {
     //variable for qty & colors
     let qty = document.querySelector('#quantity');
     let color = document.querySelector('#colors');
-    
-    
+
+
     //object for cart
     const cart = {
         id: id,
@@ -70,11 +94,12 @@ addToCart.onclick = () => {
         card.push(cart);
         localStorage.setItem("cart", JSON.stringify(card));
     } else {
-        let item = storage.filter (element => { return (element.id == id && element.color == color.value)
+        let item = storage.filter(element => {
+            return (element.id == id && element.color == color.value)
         });
-        if(item.length > 0) {
+        if (item.length > 0) {
             item[0].quantity += parseInt(qty.value);
-            item[0].prix += parseInt(qty.value)*parseFloat(price.innerText);
+            item[0].prix += parseInt(qty.value) * parseFloat(price.innerText);
             let pos = storage.findIndex((element) => (element.id == id && element.color == color.value));
             card[pos] = item[0];
             localStorage.setItem("cart", JSON.stringify(card));
